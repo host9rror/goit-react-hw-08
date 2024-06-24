@@ -26,9 +26,9 @@ const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/register/*" element={<RestrictedRoute redirectTo="/contacts" component={RegistrationPage} />} />
-        <Route path="/login/*" element={<RestrictedRoute redirectTo="/contacts" component={LoginPage} />} />
-        <Route path="/contacts/*" element={<RestrictedRoute redirectTo="/login" component={ContactsPage} />} />
+        <Route path="/register" element={<RestrictedRoute redirectTo="/contacts" component={RegistrationPage} />} />
+        <Route path="/login/" element={<RestrictedRoute redirectTo="/contacts" component={LoginPage} />} />
+        <Route path="/contacts/" element={<RestrictedRoute redirectTo="/login" component={ContactsPage} />} />
       </Routes>
     </Layout>
   );
