@@ -1,41 +1,47 @@
-import axios from "axios";
+import axios from 'axios';
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-axios.defaults.baseURL = "https://667177f3e083e62ee43bbcdb.mockapi.io/"
 
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+
+// Получение контактов
 export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
+  'phoneBook/fetchContacts',
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/contacts');
       return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
+// Добавление нового контакта
 export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async (contact, thunkAPI) => {
+  'phoneBook/addContact',
+  async (newContact, thunkAPI) => {
     try {
-      const response = await axios.post('/contacts', contact);
+      const response = await axios.post('/contacts', newContact);
+      Notify.success(`Contact added successfully` );
       return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
+// Удаление контакта
 export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
+  'phoneBook/deleteContact',
   async (contactId, thunkAPI) => {
     try {
       const response = await axios.delete(`/contacts/${contactId}`);
+      Notify.warning(`Contact deleted successfully`);
       return response.data;
-      
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
