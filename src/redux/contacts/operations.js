@@ -1,46 +1,65 @@
 import axios from 'axios';
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-// Получение контактов
 export const fetchContacts = createAsyncThunk(
-  'phoneBook/fetchContacts',
+  'contacts/fetchContacts',
   async (_, thunkAPI) => {
+
     try {
-      const response = await axios.get('/contacts');
+      const response = await axios.get(`/contacts`);
       return response.data;
     } catch (error) {
+      Notify.failure('Failed to fetch contacts');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-// Добавление нового контакта
 export const addContact = createAsyncThunk(
-  'phoneBook/addContact',
+  'contacts/addContact',
   async (newContact, thunkAPI) => {
+
     try {
-      const response = await axios.post('/contacts', newContact);
-      Notify.success(`Contact added successfully` );
+      setAuthHeader();
+      const response = await axios.post(`/contacts`, newContact);
       return response.data;
     } catch (error) {
+      Notify.failure('Failed to add contacts');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-// Удаление контакта
 export const deleteContact = createAsyncThunk(
-  'phoneBook/deleteContact',
+  'contacts/deleteContact',
   async (contactId, thunkAPI) => {
+
     try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      Notify.warning(`Contact deleted successfully`);
+      setAuthHeader();
+      await axios.delete(`/contacts/${contactId}`);
+      return contactId;
+    } catch (error) {
+      Notify.failure('Failed to delete contacts');
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async ({ contactId, updatedContact }, thunkAPI) => {
+
+    try {
+      setAuthHeader();
+      const response = await axios.patch(`/contacts/${contactId}`, updatedContact);
       return response.data;
     } catch (error) {
+      Notify.failure('Failed to update contacts');
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -18,7 +18,7 @@ const ContactList = () => {
 
   if (isLoading) {
     return <p className={css.contactsLoading}>Loading, please wait...</p>;
-  }
+  }   
 
   if (error) {
     return <p className={css.contactsError}>Error: {error}</p>;
