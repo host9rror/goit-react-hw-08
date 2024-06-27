@@ -6,6 +6,7 @@ import { selectIsRefreshing } from '../redux/auth/selectors';
 import { Layout } from './Layout';
 import RestrictedRoute from './RestrictedRoute';
 import PrivateRoute from './PrivateRoute';
+import { Toaster } from 'react-hot-toast';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RegistrationPage = lazy(() => import('../pages/RegistrationPage/RegistrationPage'));
@@ -21,8 +22,10 @@ const App = () => {
   }, [dispatch]);
 
   return (
+    
     <Layout>
       <Suspense fallback={<div>Loading...</div>}>
+      <Toaster position="top-right" reverseOrder={false} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RestrictedRoute redirectTo="/contacts" component={RegistrationPage} />} />

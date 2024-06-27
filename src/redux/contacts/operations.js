@@ -1,16 +1,14 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import toast from 'react-hot-toast';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, thunkAPI) => {
-
     try {
       const response = await axios.get(`/contacts`);
       return response.data;
     } catch (error) {
-      Notify.failure('Failed to fetch contacts');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -21,9 +19,10 @@ export const addContact = createAsyncThunk(
   async (newContact, thunkAPI) => {
     try {
       const response = await axios.post(`/contacts`, newContact);
+      toast.success('Contact added successfully!');
       return response.data;
     } catch (error) {
-      Notify.failure('Failed to add contacts');
+      toast.error(`Failed to add contact: ${error.message}`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -34,9 +33,10 @@ export const deleteContact = createAsyncThunk(
   async (contactId, thunkAPI) => {
     try {
       await axios.delete(`/contacts/${contactId}`);
+      toast.success('Contact deleted successfully!');
       return contactId;
     } catch (error) {
-      Notify.failure('Failed to delete contacts');
+      toast.error(`Failed to delete contact: ${error.message}`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -47,9 +47,10 @@ export const updateContact = createAsyncThunk(
   async ({ contactId, updatedContact }, thunkAPI) => {
     try {
       const response = await axios.patch(`/contacts/${contactId}`, updatedContact);
+      toast.success('Contact updated successfully!');
       return response.data;
     } catch (error) {
-      Notify.failure('Failed to update contacts');
+      toast.error(`Failed to update contact: ${error.message}`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
