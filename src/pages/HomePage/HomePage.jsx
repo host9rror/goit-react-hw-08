@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 
 const HomePage = () => {
     useEffect(() => {
-        // Disable scrolling on mount
         document.body.style.overflow = 'hidden';
 
-        // Enable scrolling on unmount
         return () => {
             document.body.style.overflow = 'auto';
         };
