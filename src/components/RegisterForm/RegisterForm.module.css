@@ -9,10 +9,8 @@
   background-color: #1a1a1a;
   color: #fff;
   border: 1px solid #333;
-
-  /* Центрирование формы */
-  margin: auto; /* Центрирование по горизонтали */
-  margin-top: 20vh; /* Отступ сверху для центрирования по вертикали */
+  margin: auto; /* Center horizontally */
+  margin-top: 20vh; /* Center vertically */
 }
 
 .title {
@@ -75,16 +73,18 @@
 
 .form label {
   position: relative;
+  width: 100%; /* Ensure label takes full width */
 }
 
 .form label .input {
   background-color: #333;
   color: #fff;
-  width: 333px;
-  padding: 20px 05px 05px 10px;
+  width: 100%; /* Make sure input field takes full width */
+  padding: 20px 10px 5px 10px;
   outline: 0;
   border: 1px solid rgba(105, 105, 105, 0.397);
   border-radius: 10px;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .form label .input + span {
@@ -114,6 +114,24 @@
   font-size: medium;
 }
 
+.signin {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.signin a {
+  color: #00bfff;
+}
+
 .submit {
   border: none;
   outline: none;
@@ -138,5 +156,26 @@
   to {
     transform: scale(1.8);
     opacity: 0;
+  }
+}
+
+@media (max-width: 325px) {
+  .form {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .form label .input {
+    padding: 10px 10px 5px 10px;
+  }
+
+  .title {
+    font-size: 24px;
+    padding-left: 20px;
+  }
+
+  .message,
+  .signin {
+    font-size: 12px;
   }
 }

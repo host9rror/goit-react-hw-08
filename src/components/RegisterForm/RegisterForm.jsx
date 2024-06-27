@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import styles from './RegisterForm.module.css';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
 
@@ -40,7 +41,7 @@ const RegisterForm = () => {
       onSubmit={handleSubmit}
     >
       <Form className={styles.form}>
-        <p className={styles.message}>Register now and get full access to app.</p>
+        <p className={styles.message}>Sign Up now and get full access to the app.</p>
 
         <div className={styles.flex}>
           <label>
@@ -64,7 +65,11 @@ const RegisterForm = () => {
           <span>Confirm password</span>
         </label>
 
-        <button type="submit" className={styles.submit}>Submit</button>
+        <button type="submit" className={styles.submit}>Sign Up</button>
+
+        <p className={styles.signin}>
+            Already have account? <Link to="/login">Log In</Link>
+          </p>
       </Form>
     </Formik>
   );

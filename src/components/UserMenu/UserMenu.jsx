@@ -14,7 +14,7 @@ const UserMenu = () => {
   return (
     <div className={css.userNav}>
       <p>Welcome, {user?.name}</p>
-      <button type="button" onClick={handleLogout}>LogOut</button>
+      <button className={css.logOutBtn} type="button" onClick={handleLogout}>LogOut</button>
     </div>
   );
 };

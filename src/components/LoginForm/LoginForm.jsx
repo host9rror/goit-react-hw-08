@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
@@ -20,17 +21,13 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
-    console.log('Submitting form with values:', values); // Debug log
     dispatch(logIn(values))
       .unwrap()
       .then((response) => {
-        console.log('Login success:', response); // Debug log
         resetForm();
-        navigate('/contacts'); // Redirect to contacts page on successful login
+        navigate('/contacts'); 
       })
       .catch((error) => {
-        console.error('Login error:', error); // Debug log
-        // Display error message to user
         alert(`Login failed: ${error.message || error}`);
         setSubmitting(false);
       });
@@ -59,7 +56,7 @@ const LoginForm = () => {
             Submit
           </button>
           <p className={styles.signin}>
-            Don't have an account? <a href="#">Register now</a>
+            Don't have an account? <Link to="/register">Sign Up</Link>
           </p>
         </Form>
       )}

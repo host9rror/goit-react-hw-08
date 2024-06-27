@@ -34,7 +34,6 @@ const HomePage = () => {
     return (
         <div style={styles.container}>
             <h1 style={styles.title}>Welcome to your personal contact book</h1>
-            <p style={styles.subtitle}>Please LogIn or SignUp to use Contact Book</p>
         </div>
     );
 };

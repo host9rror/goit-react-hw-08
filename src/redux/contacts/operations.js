@@ -2,10 +2,6 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const setAuthHeader = (token) => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async (_, thunkAPI) => {
@@ -23,9 +19,7 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (newContact, thunkAPI) => {
-
     try {
-      setAuthHeader();
       const response = await axios.post(`/contacts`, newContact);
       return response.data;
     } catch (error) {
@@ -38,9 +32,7 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkAPI) => {
-
     try {
-      setAuthHeader();
       await axios.delete(`/contacts/${contactId}`);
       return contactId;
     } catch (error) {
@@ -53,9 +45,7 @@ export const deleteContact = createAsyncThunk(
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ contactId, updatedContact }, thunkAPI) => {
-
     try {
-      setAuthHeader();
       const response = await axios.patch(`/contacts/${contactId}`, updatedContact);
       return response.data;
     } catch (error) {
