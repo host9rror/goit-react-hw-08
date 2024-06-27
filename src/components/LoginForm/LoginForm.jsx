@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.css';
+import { useState } from 'react';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState('');
 
   const initialValues = {
     email: '',
@@ -21,14 +23,15 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values, { setSubmitting, resetForm }) => {
+    setLoginError('');
     dispatch(logIn(values))
       .unwrap()
-      .then((response) => {
+      .then(() => {
         resetForm();
         navigate('/contacts'); 
       })
-      .catch((error) => {
-        alert(`Login failed: ${error.message || error}`);
+      .catch(() => {
+        setLoginError('Incorrect e-mail address or password');
         setSubmitting(false);
       });
   };
@@ -55,6 +58,7 @@ const LoginForm = () => {
           <button type="submit" className={styles.submit} disabled={isSubmitting}>
             Submit
           </button>
+          {loginError && <p className={styles.error}>{loginError}</p>}
           <p className={styles.signin}>
             Don't have an account? <Link to="/register">Sign Up</Link>
           </p>

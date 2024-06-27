@@ -9,8 +9,8 @@
   background-color: #1a1a1a;
   color: #fff;
   border: 1px solid #333;
-  margin: auto; /* Center horizontally */
-  margin-top: 20vh; /* Center vertically */
+  margin: auto;
+  margin-top: 20vh;
 }
 
 .title {
@@ -73,18 +73,23 @@
 
 .form label {
   position: relative;
-  width: 100%; /* Ensure label takes full width */
+  width: 100%;
+}
+.error {
+  color: red;
+  display: flex;
+  justify-content: center;
 }
 
 .form label .input {
   background-color: #333;
   color: #fff;
-  width: 100%; /* Make sure input field takes full width */
+  width: 100%;
   padding: 20px 10px 5px 10px;
   outline: 0;
   border: 1px solid rgba(105, 105, 105, 0.397);
   border-radius: 10px;
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  box-sizing: border-box;
 }
 
 .form label .input + span {
